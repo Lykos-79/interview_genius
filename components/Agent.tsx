@@ -66,10 +66,10 @@ const Agent = ({ userName, userId, type }: AgentProps) => {
     setCallStatus(CallStatus.CONNECTING);
 
     await vapi.start(
-      undefined, // 1st argument
-      undefined, // 2nd argument
-      undefined, // 3rd argument
-      process.env.NEXT_PUBLIC_VAPI_WORKFLOW_ID!, // 4th argument (workflow id)
+      undefined,
+      undefined,
+      undefined,
+      process.env.NEXT_PUBLIC_VAPI_WORKFLOW_ID!,
       {
         variableValues: {
           username: userName,
