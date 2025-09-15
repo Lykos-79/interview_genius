@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { vapi } from "@/lib/vapi.sdx";
 import { interviewer } from "@/constants";
+import { createFeedback } from "@/lib/actions/general.action";
 
 enum CallStatus {
   INACTIVE = "INACTIVE",
@@ -67,11 +68,13 @@ const Agent = ({
 
   const handleGenerateFeedback = async (messages: SavedMessage[]) => {
     console.log("Generate fedback here.");
-    // TODO: Createa a server action that  generates feedback
-    const { success, id } = {
-      success: true,
-      id: "feedback-id",
-    };
+
+    const { success, feedbackId: id } = await createFeedback({
+      interviewId: interviewId!,
+      userId: userId!,
+      transcript: messages,
+      // feedbackId,
+    });
 
     if (success && id) {
       router.push(`/interview/${interviewId}/feedback`);
@@ -89,7 +92,6 @@ const Agent = ({
         handleGenerateFeedback(messages);
       }
     }
-    if (callStatus === CallStatus.FINISHED) router.push("/");
   }, [messages, callStatus, type, userId]);
 
   const handleCall = async () => {
