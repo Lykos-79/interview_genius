@@ -1,9 +1,9 @@
-import { getRandomInterviewCover } from "@/lib/utils";
 import dayjs from "dayjs";
 import Image from "next/image";
-import { Button } from "./ui/button";
+import { getRandomInterviewCover } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import DisplayTechIcons from "./DisplayTechIcons";
+import DisplayTechIcons from "@/components/DisplayTechIcons";
 
 const InterviewCard = ({
   interviewId,
@@ -29,7 +29,7 @@ const InterviewCard = ({
 
           <Image
             src={getRandomInterviewCover()}
-            alt="coverimage"
+            alt="cover image"
             width={90}
             height={90}
             className="rounded-full object-fit size-[90px]"
@@ -50,14 +50,13 @@ const InterviewCard = ({
 
             <div className="flex flex-row gap-2 items-center">
               <Image src="/star.svg" alt="star" width={22} height={22} />
-
               <p>{feedback?.totalScore || "---"}/100</p>
             </div>
           </div>
 
           <p className="line-clamp-2 mt-5">
             {feedback?.finalAssessment ||
-              "You haven't taken the interview yet. take it now to improve your skills"}
+              "You haven't taken the interview yet. Take it now to improve your skills."}
           </p>
         </div>
 
@@ -80,5 +79,4 @@ const InterviewCard = ({
     </div>
   );
 };
-
 export default InterviewCard;

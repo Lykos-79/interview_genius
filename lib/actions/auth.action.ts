@@ -1,6 +1,6 @@
 "use server";
 
-import { auth, db } from "@/firebase/admin";
+import { db, auth } from "@/firebase/admin";
 import { cookies } from "next/headers";
 
 const ONE_WEEK = 60 * 60 * 24 * 7;
@@ -33,7 +33,7 @@ export async function signUp(params: SignUpParams) {
     if (e.code === "auth/email-already-exists") {
       return {
         success: false,
-        message: "This email is already in use",
+        message: "This email is already in use.",
       };
     }
 
@@ -53,7 +53,7 @@ export async function signIn(params: SignInParams) {
     if (!userRecord) {
       return {
         success: false,
-        message: "User does not exsist. Create an account instead.",
+        message: "User does not exist. Create an account instead.",
       };
     }
 
@@ -63,7 +63,7 @@ export async function signIn(params: SignInParams) {
 
     return {
       success: false,
-      message: "Failed to log into an account",
+      message: "Failed to log into an account.",
     };
   }
 }
@@ -88,16 +88,17 @@ export async function getCurrentUser(): Promise<User | null> {
   const cookieStore = await cookies();
 
   const sessionCookie = cookieStore.get("session")?.value;
+
   if (!sessionCookie) return null;
 
   try {
     const decodedClaims = await auth.verifySessionCookie(sessionCookie, true);
 
-    // get user info from db
     const userRecord = await db
       .collection("users")
       .doc(decodedClaims.uid)
       .get();
+
     if (!userRecord.exists) return null;
 
     return {
@@ -107,7 +108,6 @@ export async function getCurrentUser(): Promise<User | null> {
   } catch (e) {
     console.log(e);
 
-    // Invalid or expired session
     return null;
   }
 }
@@ -123,7 +123,7 @@ export async function getInterviewsByUserId(
 ): Promise<Interview[] | null> {
   const interviews = await db
     .collection("interviews")
-    .where("useId", "==", userId)
+    .where("userId", "==", userId)
     .orderBy("createdAt", "desc")
     .get();
 

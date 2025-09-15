@@ -4,7 +4,7 @@ import { getRandomInterviewCover } from "@/lib/utils";
 import { db } from "@/firebase/admin";
 
 export async function GET() {
-  return Response.json({ success: true, data: "Thank YOU!" }, { status: 200 });
+  return Response.json({ success: true, data: "THANK YOU!" }, { status: 200 });
 }
 
 export async function POST(request: Request) {
@@ -29,9 +29,9 @@ export async function POST(request: Request) {
     });
 
     const interview = {
-      role: role,
-      type: type,
-      level: level,
+      role,
+      type,
+      level,
       techstack: techstack.split(","),
       questions: JSON.parse(questions),
       userId: userid,

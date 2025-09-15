@@ -1,24 +1,22 @@
 "use client";
 
-import { z } from "zod";
-import Link from "next/link";
-import Image from "next/image";
-import { toast } from "sonner";
-import { auth } from "@/firebase/client";
-import { useForm } from "react-hook-form";
-import { useRouter } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
 
+import { Button } from "@/components/ui/button";
+import { Form } from "@/components/ui/form";
+import Image from "next/image";
+import Link from "next/link";
+import { toast } from "sonner";
+import FormField from "@/components/FormField";
+import { useRouter } from "next/navigation";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
 } from "firebase/auth";
-
-import { Form } from "@/components/ui/form";
-import { Button } from "@/components/ui/button";
-
+import { auth } from "@/firebase/client";
 import { signIn, signUp } from "@/lib/actions/auth.action";
-import FormField from "./FormField";
 
 const authFormSchema = (type: FormType) => {
   return z.object({
@@ -144,7 +142,7 @@ const AuthForm = ({ type }: { type: FormType }) => {
         </Form>
 
         <p className="text-center">
-          {isSignIn ? "No account yet" : "Have an account already"}
+          {isSignIn ? "No account yet?" : "Have an account already?"}
           <Link
             href={!isSignIn ? "/sign-in" : "/sign-up"}
             className="font-bold text-user-primary ml-1"
@@ -156,5 +154,4 @@ const AuthForm = ({ type }: { type: FormType }) => {
     </div>
   );
 };
-
 export default AuthForm;
